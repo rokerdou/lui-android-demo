@@ -3,10 +3,10 @@
 
 function onCreated()
 
-	local root = view{key0="0"};
-	local sub = view{key1="1"}
-	sub:addChild(view{key1_0 = "10"})
+	local root = view{Marginleft=0,Margintop=0,Width=800,Height=1300,BackgroundColor="#000000"};
+	local sub = view{Marginleft=10,Margintop=220,Width=700,Height=300,BackgroundColor="#fecc11"}
+	
 	root:addChild(sub)
-	root:addChild(view{key2="2"})
+
 	return  root
 end

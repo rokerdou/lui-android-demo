@@ -12,11 +12,27 @@ public class Luadata {
 		ChildArray.add(c);
 		return c;
 	}
+	public boolean hasChild()
+	{
+		return !ChildArray.isEmpty();
+		
+	}
 	public void addAttrs(String key,String v)
 	{
 		attrs.put(key, v);
 	}
-
+	public List getChildArray()
+	{
+		return ChildArray;
+	}
+	public HashMap getAttrs()
+	{
+		return attrs;
+	}
+	public List getChild()
+	{
+		return ChildArray;
+	}
 	public String toString()
 	{
 		String str = new String();

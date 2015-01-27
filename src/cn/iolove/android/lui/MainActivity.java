@@ -13,6 +13,7 @@ import org.keplerproject.luajava.LuaStateFactory;
 
 import cn.iolove.android.lui.model.Luadata;
 import cn.iolove.android.lui.utils.Utils;
+import cn.iolove.android.lui.view.View;
 
 
 import android.os.Bundle;
@@ -21,20 +22,21 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private LuaState mLuaState;
-	LinearLayout container;
+	View container;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 container = new LinearLayout(this);
-		setContentView(container);
+        FrameLayout f = new FrameLayout(this);
 		mLuaState = LuaStateFactory.newLuaState();
 		
+		 container = new View(this);
 		
 		mLuaState.openLibs();
 		try {
@@ -60,8 +62,12 @@ public class MainActivity extends Activity {
 				//new AlertDialog.Builder(this).setTitle("LUA").setMessage(mLuaState.toString(-1)).setPositiveButton("确定", null).show();
                 Log.i("xxx", mLuaState.toString(-1));
                 Luadata root=  Utils.getMap4Json(new Luadata(),mLuaState.toString(-1));
-                
-               Log.i("xxx","lua Object:"+ root.toString());
+                Log.i("xxx","lua Object:"+ root.toString());
+               
+                container.setViewData(root);
+                container.setContentView(container);
+                f.addView(container);
+                setContentView(f);
                // mLuaState.setTop(0);
 		 // mLuaState.getGlobal("resulttable");
 		  //LuaObject obj = mLuaState.getLuaObject("resulttable");
@@ -85,6 +91,9 @@ public class MainActivity extends Activity {
 			System.out.print("打开失败");
 			e.printStackTrace();
 		}
+		
+		
+		
 	
 	}
 	private String loadAssetsString(String resPath) {
