@@ -1,5 +1,7 @@
 package cn.iolove.android.lui.view;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,10 +57,36 @@ public class View extends  BaseView{
 		   for(int i=0;i<temp.getChild().size();i++)
 		   {
 			   BaseView  child= new View(context);
-			   Luadata cd= (Luadata) temp.getChild().get(i);
-			   child.setViewData(cd);
 			   
-			   addChild(child);
+			   Luadata cd= (Luadata) temp.getChild().get(i);
+			   Class c2;
+			   try
+			   {
+				   if(cd.getAttrs().get("qName").equals("View"))
+				   {
+					    c2 = Class.forName("cn.iolove.android.lui.view."+"View");
+				   }
+				   else
+				   {
+					    c2 = Class.forName("cn.iolove.android.lui.view."+cd.getAttrs().get("qName")+"View");
+				   }
+				   Class[] paramTypes = { RuntimeContext.class };  
+				   Object[] params = { context };  
+				   Constructor con = c2.getConstructor(paramTypes); 
+				   Object obj=   con.newInstance(params);
+				     Method method2 = c2.getMethod("setViewData",Luadata.class);
+				     //调用printAddress方法，其中HK是为方法传递一个参数值
+				     method2.invoke(obj,cd);
+				     addChild((BaseView) obj);
+				    
+			   }catch (Exception e)
+			   {
+				   e.printStackTrace();
+			   }
+			   
+			  //child.setViewData(cd);
+			   
+			  
 			 
 		   }
 	   }
@@ -79,7 +107,8 @@ public class View extends  BaseView{
 		{
 			for(int i=0;i<v.getChildList(v).size();i++)
 			{
-				setContentView((BaseView) v.getChildList(v).get(i));
+				BaseView obj = (BaseView)( v.getChildList(v).get(i));
+				obj.setContentView(obj);
 				
 				BaseView s =  (BaseView) v.getChildList(v).get(i);
 				Log.i("jjj", "v.getChildViewModel().."+i+": "+s);

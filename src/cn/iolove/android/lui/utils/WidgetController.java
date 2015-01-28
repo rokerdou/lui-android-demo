@@ -1,8 +1,10 @@
 package cn.iolove.android.lui.utils;
 
+import cn.iolove.android.lui.model.ViewModel;
 import cn.iolove.android.lui.view.BaseView;
 import cn.iolove.android.lui.view.BaseViewLayoutParams;
 import android.graphics.Color;
+import android.view.View;
 import android.view.ViewGroup.MarginLayoutParams;  
 
   
@@ -25,12 +27,17 @@ public class WidgetController {
     {
     	view.setLayoutParams(lop);
     }
+    public static void setViewAttrs(View v,ViewModel vm)
+    {
+		WidgetController.setLayout(v,vm.getMarginleft(),vm.getMargintop(),vm.getWidth(),vm.getHeight());
+		WidgetController.setBackgroundColor(v,vm.getBackgroundColor());
+    }
     public static void setViewAttrs(BaseView v)
     {
 		WidgetController.setLayout(v, v.getViewModel().getMarginleft(), v.getViewModel().getMargintop(),v.getViewModel().getWidth(),v.getViewModel().getHeight());
 		WidgetController.setBackgroundColor(v,v.getViewModel().getBackgroundColor());
     }
-    /* 
+/*
      * 获取控件高 
      */  
     public static int getHeight(BaseView view)  
@@ -54,11 +61,22 @@ public class WidgetController {
     {
     	view.setBackgroundColor(Color.parseColor(p));
     }
-
+    public static void setBackgroundColor(View view ,String p)
+    {
+    	view.setBackgroundColor(Color.parseColor(p));
+    }
     /* 
      * 设置控件所在的位置YY，并且不改变宽高， 
      * XY为绝对位置 
      */  
+    public static void setLayout(View view,int x,int y,int w ,int h)  
+    {  
+       view.layout(x, y, x+w, y+h);
+       MarginLayoutParams margin=new MarginLayoutParams(w,h); 
+       margin.setMargins(x,y, x+w, y+h); 
+       BaseViewLayoutParams layoutParams = new BaseViewLayoutParams(margin); 
+       view.setLayoutParams(layoutParams); 
+    }  
     public static void setLayout(BaseView view,int x,int y,int w ,int h)  
     {  
        view.layout(x, y, x+w, y+h);

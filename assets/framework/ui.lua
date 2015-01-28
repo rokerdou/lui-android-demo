@@ -14,7 +14,18 @@ end
 function view(args)
     local m = {}
     setmetatable(m, View)
-    m.qName = "view"
+    m.qName = "View"
+    if args then
+    	for k,v in pairs(args) do
+    		m[k] = v
+    	end
+    end
+    return m
+end
+function EditText(args)
+    local m = {}
+    m.qName = "EditText"
+    m.height = 44
     if args then
     	for k,v in pairs(args) do
     		m[k] = v

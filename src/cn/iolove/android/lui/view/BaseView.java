@@ -37,7 +37,7 @@ public void setLayoutParamss(android.view.ViewGroup.LayoutParams params) {
 	public abstract BaseView getParentView();
 	public abstract void SetParentView(BaseView v);
 	
-
+	
    public abstract ViewModel getViewModel();
    public abstract List getChildList(BaseView v);
 
