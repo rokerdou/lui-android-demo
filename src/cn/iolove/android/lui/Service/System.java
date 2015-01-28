@@ -10,16 +10,16 @@ public class System implements PageControl {
 	public static System getInstance(){return sy;}
 	@Override
 	public void switchpage(String pagename) {
-		rc.switchpage(pagename);		
+		rc.getPageController().switchpage(pagename);		
 	}
 	@Override
 	public void pushpage(String pagename) {
-		rc.pushpage(pagename);
+		rc.getPageController().pushpage(pagename);
 		
 	}
 	@Override
 	public void poppage() {
-		rc.poppage();
+		rc.getPageController().poppage();
 		
 	}
 	

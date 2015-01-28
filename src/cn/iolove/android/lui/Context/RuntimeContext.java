@@ -11,37 +11,41 @@ import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
 
+import cn.iolove.android.lui.BootActivity;
+import cn.iolove.android.lui.domain.Device;
 import cn.iolove.android.lui.page.Page;
 import cn.iolove.android.lui.utils.Utils;
 
-public class RuntimeContext implements PageControl{
-	private static Stack<Page>  StackPage = new Stack<Page>() ;
-	private static RuntimeContext rc = new RuntimeContext();
-	private Context context;
-	private RuntimeContext(){};
-	public static RuntimeContext getInstance(){ return rc;}
+public class RuntimeContext{
 
-	public void setContext(Context co)
+	private static RuntimeContext rc = new RuntimeContext();
+	private BootActivity context;
+	private RuntimeContext(){};
+	private Device device =Device.getInstance() ;
+	private  PageController pc= PageController.getInstance();
+	public static RuntimeContext getInstance()
+	{ 
+		
+		return rc;
+	}
+    public PageController getPageController()
+    {
+    	return pc;
+    }
+	public RuntimeContext setContext(BootActivity co)
 	{
 		context =co;
-	}
-	public void switchpage(String pagename) {
-		// TODO Auto-generated method stub
+		pc.setRuntimeContext(this);
 		
-	}
-	@Override
-	public void pushpage(String pagename) {
-		// TODO Auto-generated method stub
+
 		
+		return this;
 	}
-	@Override
-	public void poppage() {
-	 if(StackPage.isEmpty())
-	 {
-		 return;
-	 }
-		
+	public BootActivity GetActivityContext()
+	{
+		return context;
 	}
+
 	public void readLuaFile(String name,LuaState mLuaState)
 	{
 			

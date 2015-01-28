@@ -3,6 +3,7 @@ package cn.iolove.android.lui.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.iolove.android.lui.Context.RuntimeContext;
 import cn.iolove.android.lui.model.Luadata;
 import cn.iolove.android.lui.model.ViewModel;
 import cn.iolove.android.lui.utils.WidgetController;
@@ -20,13 +21,13 @@ public class View extends  BaseView{
 
 
 	private List subitems = new ArrayList();
-	private Context context;
+	private RuntimeContext context;
 
 	private ViewModel viewmodel = new ViewModel();
 	//LinearLayout l;
-	public View(Context context) {
-		super(context);
-		this.context = context;
+	public View(RuntimeContext context) {
+		super(context.GetActivityContext());
+		this.context =  context;
 	}
 	public ViewModel getViewModel()
 	{
@@ -46,14 +47,7 @@ public class View extends  BaseView{
    {
 	  
 	   viewmodel.setAttrs(temp.getAttrs());
-		/*
-	    String str = new String();
-		for (Object key : temp.getAttrs().keySet()) {
-				
-			   String  value = (String) temp.getAttrs().get(key);
-			   str= str+ " "+key+":"+value;
-			}
-	*/
+
 
 		
 	   if(temp.hasChild())
@@ -79,15 +73,9 @@ public class View extends  BaseView{
 				   String  value = (String) v.getViewModel().hm.get(key);
 				   strr= strr+ " "+key+":"+value;
 				}
-			//Log.i("jjj", "v.getViewModel().."+strr);
-		//Log.i("jjj",v.getViewModel().getWidth()+" "+v.getViewModel().getWidth());
-        int t= v.getViewModel().getMarginleft();
-        t= v.getViewModel().getMargintop();
-        t=v.getViewModel().getHeight();
-        t=v.getViewModel().getWidth();
-		WidgetController.setLayout(v, v.getViewModel().getMarginleft(), v.getViewModel().getMargintop(),v.getViewModel().getWidth(),v.getViewModel().getHeight());
-		WidgetController.setBackgroundColor(v,v.getViewModel().getBackgroundColor());
-		if(!v.getChildList(v).isEmpty())
+
+        WidgetController.setViewAttrs(v);
+        if(!v.getChildList(v).isEmpty())
 		{
 			for(int i=0;i<v.getChildList(v).size();i++)
 			{
@@ -120,7 +108,6 @@ public class View extends  BaseView{
 	}
 	@Override
 	public void SetParentView(BaseView v) {
-		// TODO Auto-generated method stub
 		
 	}
 

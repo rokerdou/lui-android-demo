@@ -25,6 +25,11 @@ public class WidgetController {
     {
     	view.setLayoutParams(lop);
     }
+    public static void setViewAttrs(BaseView v)
+    {
+		WidgetController.setLayout(v, v.getViewModel().getMarginleft(), v.getViewModel().getMargintop(),v.getViewModel().getWidth(),v.getViewModel().getHeight());
+		WidgetController.setBackgroundColor(v,v.getViewModel().getBackgroundColor());
+    }
     /* 
      * 获取控件高 
      */  
