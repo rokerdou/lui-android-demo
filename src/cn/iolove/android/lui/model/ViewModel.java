@@ -66,6 +66,20 @@ public void SetBackgroundColor(String p) {
 	// TODO Auto-generated method stub
 	hm.put("BackgroundColor", p);
 }
+public String toString()
+{
+	String strr = new String();
+	// TODO Auto-generated method stub
+	
+	for (Object key : hm.keySet()) {
+		
+		   String  value = (String) hm.get(key);
+		   strr= strr+ " "+key+":"+value;
+		}
+	//Log.i("jjj", "viewmodel.."+strr);
+	return strr;
+	
+}
 @Override
 public String getBackgroundColor() {
 	String strr = new String();
@@ -76,7 +90,7 @@ public String getBackgroundColor() {
 		   String  value = (String) hm.get(key);
 		   strr= strr+ " "+key+":"+value;
 		}
-	Log.i("jjj", "viewmodel.."+strr);
+	//Log.i("jjj", "viewmodel.."+strr);
 	return (String) hm.get("BackgroundColor");
 }
 }

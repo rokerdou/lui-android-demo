@@ -66,6 +66,8 @@ public class MainActivity extends Activity {
                
                 container.setViewData(root);
                 container.setContentView(container);
+
+            
                 f.addView(container);
                 setContentView(f);
                // mLuaState.setTop(0);

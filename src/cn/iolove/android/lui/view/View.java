@@ -5,6 +5,7 @@ import java.util.List;
 
 import cn.iolove.android.lui.model.Luadata;
 import cn.iolove.android.lui.model.ViewModel;
+import cn.iolove.android.lui.utils.WidgetController;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -36,7 +37,11 @@ public class View extends  BaseView{
 		subitems.add(v);
 		 
 	}
-	
+	public String toString()
+	{
+	   return viewmodel.toString();
+		
+	}
    public void setViewData(Luadata temp)
    {
 	  
@@ -76,22 +81,20 @@ public class View extends  BaseView{
 				}
 			//Log.i("jjj", "v.getViewModel().."+strr);
 		//Log.i("jjj",v.getViewModel().getWidth()+" "+v.getViewModel().getWidth());
-		LayoutParams lp = new LayoutParams(v.getViewModel().getWidth(),v.getViewModel().getHeight());
-		lp.leftMargin=v.getViewModel().getMarginleft();
-		lp.topMargin=v.getViewModel().getMargintop();
-		lp.width=v.getViewModel().getWidth();
-		lp.height=v.getViewModel().getHeight();
-		
-		v.setLayoutParams((LinearLayout.LayoutParams)lp);
-	
-		v.setBackgroundColor(Color.parseColor(v.getViewModel().getBackgroundColor()));
+        int t= v.getViewModel().getMarginleft();
+        t= v.getViewModel().getMargintop();
+        t=v.getViewModel().getHeight();
+        t=v.getViewModel().getWidth();
+		WidgetController.setLayout(v, v.getViewModel().getMarginleft(), v.getViewModel().getMargintop(),v.getViewModel().getWidth(),v.getViewModel().getHeight());
+		WidgetController.setBackgroundColor(v,v.getViewModel().getBackgroundColor());
 		if(!v.getChildList(v).isEmpty())
 		{
 			for(int i=0;i<v.getChildList(v).size();i++)
 			{
 				setContentView((BaseView) v.getChildList(v).get(i));
-				Log.i("jjj", "v.getViewModel().."+strr);
+				
 				BaseView s =  (BaseView) v.getChildList(v).get(i);
+				Log.i("jjj", "v.getChildViewModel().."+i+": "+s);
 				 this.addView( s);
 			}
 		}
@@ -109,6 +112,16 @@ public class View extends  BaseView{
 	public List getChildList(BaseView v) {
 		// TODO Auto-generated method stub
 		return subitems;
+	}
+	@Override
+	public BaseView getParentView() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void SetParentView(BaseView v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

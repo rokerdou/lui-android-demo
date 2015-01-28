@@ -2,11 +2,13 @@
 
 
 function onCreated()
-
-	local root = view{Marginleft=0,Margintop=0,Width=800,Height=1300,BackgroundColor="#000000"};
-	local sub = view{Marginleft=10,Margintop=220,Width=700,Height=300,BackgroundColor="#fecc11"}
-	
-	root:addChild(sub)
-
+    
+	local root = view{Marginleft=0,Margintop=0,Width=120,Height=1000,BackgroundColor="#ddeeff"}
+    local sub = view {Marginleft=60,Margintop=0,Width=30,Height=300,BackgroundColor="#ffeedd"}
+    local subb = view {Marginleft=90,Margintop=0,Width=30,Height=300,BackgroundColor="#ffffff"}
+    root:addChild(view{Marginleft=30,Margintop=0,Width=30,Height=300,BackgroundColor="#eeccff"})
+    root:addChild(sub)
+    root:addChild(subb)
+    
 	return  root
 end
