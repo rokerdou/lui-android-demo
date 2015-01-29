@@ -28,6 +28,10 @@ public class RuntimeContext{
 		
 		return rc;
 	}
+	public Device getDevice()
+	{
+		return device;
+	}
     public PageController getPageController()
     {
     	return pc;
@@ -36,7 +40,7 @@ public class RuntimeContext{
 	{
 		context =co;
 		pc.setRuntimeContext(this);
-		
+		device.setScreenWidthAndHeight(co.getWindowManager().getDefaultDisplay().getWidth(),co.getWindowManager().getDefaultDisplay().getHeight());
 
 		
 		return this;
@@ -53,7 +57,7 @@ public class RuntimeContext{
 			try {
 	
 				
-				int error = mLuaState.LdoString(Utils.loadAssetsString("framework/ui.lua",context)+Utils.loadAssetsString("lua/main.lua",context));
+				int error = mLuaState.LdoString(Utils.loadAssetsString("lua/main.lua",context));
 				if(error!=0)
 				{
 					new AlertDialog.Builder(context).setTitle("LUA´íÎó").setMessage(mLuaState.toString(-1)).setPositiveButton("È·¶¨", null).show();

@@ -3,8 +3,8 @@ package cn.iolove.android.lui.domain;
 public class Device {
 	private  static Device obj = new Device();
 	public static Device getInstance() {return obj;}
-	private int ScreenWidth;
-	private int ScreenHeight;
+	public int ScreenWidth;
+	public int ScreenHeight;
 	private Device(){}
 	public Device setScreenWidthAndHeight(int w,int h)
 	{
@@ -12,6 +12,16 @@ public class Device {
 		ScreenHeight=h;
 		
        return this;	
+	}
+	public int getScreenWidth()
+	{
+		return ScreenWidth;
+		
+	}
+	public int getScreenHeight()
+	{
+		return ScreenHeight;
+		
 	}
 
 }

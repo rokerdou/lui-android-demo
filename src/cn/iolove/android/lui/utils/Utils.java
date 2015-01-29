@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.keplerproject.luajava.LuaState;
 
+import cn.iolove.android.lui.Context.RuntimeContext;
 import cn.iolove.android.lui.model.Luadata;
 
 import android.content.Context;
@@ -56,8 +57,32 @@ public class Utils {
           //  Log.i("xxx", "key "+key);
             Log.i("xxx", key+" "+jsonObject.get(key).toString());
             value = jsonObject.get(key);         
-           //valueMap.put(key, value);         
-            root.addAttrs(key, jsonObject.get(key).toString());
+           //valueMap.put(key, value);   
+            if(key.equals("Marginleft")||key.equals("Width"))
+            {
+            	String v = jsonObject.get(key).toString();
+            	v=v.substring(0, v.length()-1);
+            	int relativev= Integer.parseInt(v);
+            	int w=RuntimeContext.getInstance().getDevice().getScreenWidth();
+            	int realv=(w*relativev)/100;
+            	
+            	root.addAttrs(key,new Integer(realv).toString());
+            }
+            else
+            	if(key.equals("Margintop")||key.equals("Height"))
+            	{
+                	String v = jsonObject.get(key).toString();
+                	v=v.substring(0, v.length()-1);
+                	int relativev= Integer.parseInt(v);
+                	int h=RuntimeContext.getInstance().getDevice().getScreenHeight();
+                	int realv=(h*relativev)/100;
+                	
+                	root.addAttrs(key,new Integer(realv).toString());
+            		
+            	}
+            	else
+
+            	root.addAttrs(key, jsonObject.get(key).toString());
             }
         }         
 		} catch (JSONException e) {
