@@ -5,6 +5,7 @@ import java.util.List;
 import android.content.Context;
 
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import cn.iolove.android.lui.model.Luadata;
 import cn.iolove.android.lui.model.ViewModel;
@@ -13,17 +14,13 @@ public abstract class BaseView extends FrameLayout{
 
 	public BaseView(Context context) {
 		super(context);
-	
-
-        
+      
 	}
 
 	public void setLayoutParams(BaseViewLayoutParams params) {
 		// TODO Auto-generated method stub
 		setLayoutParamss(params);
-		
-
-		
+	
 	}
  
 

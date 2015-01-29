@@ -2,6 +2,7 @@ package cn.iolove.android.lui.view;
 
 import java.util.List;
 
+import android.graphics.Color;
 import android.widget.EditText;
 
 import cn.iolove.android.lui.Context.RuntimeContext;
@@ -26,8 +27,11 @@ public class EditTextView extends View {
 	public void setContentView(BaseView v) {
 		//WidgetController.setViewAttrs(edit, this.getViewModel());
 		edit.setFocusable(true);
-		edit.setText("ÄãºÃ");
+		
+		edit.setText(this.getViewModel().getValueByKey("text"));
+		edit.setBackgroundColor(Color.parseColor(this.getViewModel().getBackgroundColor()));
 		this.addView(edit);
+
 
 	  super.setContentView(v);
 	  

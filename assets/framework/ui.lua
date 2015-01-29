@@ -33,6 +33,17 @@ function EditText(args)
     end
     return m
 end
+function Button(args)
+    local m = {}
+    m.qName = "Button"
+    m.height = 44
+    if args then
+    	for k,v in pairs(args) do
+    		m[k] = v
+    	end
+    end
+    return m
+end
 function table2json(t)   
         local function serialize(tbl)   
                 local tmp = {}   
