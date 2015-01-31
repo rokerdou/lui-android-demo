@@ -6,8 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.iolove.android.lui.Context.RuntimeContext;
+import cn.iolove.android.lui.lua.Luahelper;
 import cn.iolove.android.lui.model.Luadata;
 import cn.iolove.android.lui.model.ViewModel;
+import cn.iolove.android.lui.utils.Utils;
 import cn.iolove.android.lui.utils.WidgetController;
 
 import android.content.Context;
@@ -23,9 +25,9 @@ public class View extends  BaseView{
 
 
 	private List subitems = new ArrayList();
-	private RuntimeContext context;
+	protected RuntimeContext context;
 
-	private ViewModel viewmodel = new ViewModel();
+	private ViewModel viewmodel;
 	//LinearLayout l;
 	public View(RuntimeContext context) {
 		super(context.GetActivityContext());
@@ -47,10 +49,30 @@ public class View extends  BaseView{
 	}
    public void setViewData(Luadata temp)
    {
-	  
+	   Class c1;
+	   try {
+		c1 = Class.forName("cn.iolove.android.lui.model."+temp.getAttrs().get("qName")+"Model");
+		Class[] params = {  }; 
+		Object [] parray={};
+		Constructor cons=c1.getConstructor(params);
+		viewmodel = (ViewModel) cons.newInstance(parray);
+
+		
+	} catch (Exception e1) {
+		// TODO Auto-generated catch block
+		Log.i("jjj", "动态生成viewModel对象出错");
+		e1.printStackTrace();
+	}
+
+
 	   viewmodel.setAttrs(temp.getAttrs());
 
-
+		if(!(viewmodel.getValueByKey("Id")).equals(""))
+		{
+			
+			Utils.setGlobalObject(context.getLuaState()
+					, viewmodel.getValueByKey("Id"),viewmodel);
+		}
 		
 	   if(temp.hasChild())
 	   {
@@ -92,6 +114,22 @@ public class View extends  BaseView{
 	   }
 	   
    }
+
+   public void removeAllView(BaseView v)
+   {
+		for(int i=0;i<v.getChildList(v).size();i++)
+		{
+			BaseView obj = (BaseView)( v.getChildList(v).get(i));
+			removeAllView(obj);
+
+			
+		}
+		this.removeAllViews();
+		v.removeAllViews();
+		
+		Log.i("jjj", "remove views "+ v.getClass().getName());
+		
+   }
 	@Override
 	public void setContentView(BaseView v) {
 		  // viewmodel.setAttrs(temp.getAttrs());
@@ -101,7 +139,7 @@ public class View extends  BaseView{
 				   String  value = (String) v.getViewModel().hm.get(key);
 				   strr= strr+ " "+key+":"+value;
 				}
-
+			
         WidgetController.setViewAttrs(v);
         if(!v.getChildList(v).isEmpty())
 		{
@@ -112,6 +150,7 @@ public class View extends  BaseView{
 				
 				BaseView s =  (BaseView) v.getChildList(v).get(i);
 				Log.i("jjj", "v.getChildViewModel().."+i+": "+s);
+				//this.removeAllViews();
 				 this.addView( s);
 			}
 		}

@@ -28,7 +28,7 @@ public class EditTextView extends View {
 		//WidgetController.setViewAttrs(edit, this.getViewModel());
 		edit.setFocusable(true);
 		
-		edit.setText(this.getViewModel().getValueByKey("text"));
+		edit.setText(this.getViewModel().getValueByKey("Text"));
 		edit.setBackgroundColor(Color.parseColor(this.getViewModel().getBackgroundColor()));
 		this.addView(edit);
 

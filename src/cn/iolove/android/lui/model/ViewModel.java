@@ -93,7 +93,12 @@ public String getBackgroundColor() {
 	//Log.i("jjj", "viewmodel.."+strr);
 	return (String) hm.get("BackgroundColor");
 }
+public void putValueAndKey(String k,String v)
+{
+	hm.put(k, v);
+}
 public String getValueByKey(String p) {
+	
 	if (hm.get(p)==null)
 		return "";
 	else return (String)hm.get(p);

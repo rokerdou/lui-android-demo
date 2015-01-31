@@ -36,11 +36,12 @@ public class MainActivity extends BootActivity {
 		super.onCreate(savedInstanceState);
   
 		
-		BaseView container = new View(RuntimeContext.getInstance().setContext(this) );
+		RuntimeContext.getInstance().setContext(this) ;
 		RuntimeContext.getInstance().getPageController().setRuntimeContext(RuntimeContext.getInstance());
 		RuntimeContext.getInstance().getPageController().pushpage("main");
-		container = new View(RuntimeContext.getInstance());
-		container.addView(RuntimeContext.getInstance().getPageController().getTopPage());
+		//container = new View(RuntimeContext.getInstance());
+		
+		container=(RuntimeContext.getInstance().getPageController().getTopPage());
 		setContentView(container);
              
 
@@ -60,8 +61,11 @@ public class MainActivity extends BootActivity {
 
 	@Override
 	public void Refresh() {
-		container.addView(RuntimeContext.getInstance().getPageController().getTopPage());
-		setContentView(container);
+		container.removeAllView(container);
+		container.removeAllViews();
+		RuntimeContext.getInstance().getPageController().getTopPage().setContentView(RuntimeContext.getInstance().getPageController().getTopPage());
+		container=(RuntimeContext.getInstance().getPageController().getTopPage());
+		//setContentView(container);
 		
 	}
 	

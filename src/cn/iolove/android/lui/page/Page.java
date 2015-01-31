@@ -17,21 +17,31 @@ import cn.iolove.android.lui.utils.Utils;
 import cn.iolove.android.lui.view.BaseView;
 import cn.iolove.android.lui.view.View;
 
-public class Page extends BaseView{
+public class Page extends View{
 
 	private  LuaState mLuaState;
 	private PageModel pm;
 	private View root;
 	private RuntimeContext context;
 	public Page(RuntimeContext context) {
-		super(context.GetActivityContext());
+		super(context);
 		root = new View(context);
 		this.context=context;
 		
 	}
+	   public void removeAllView(BaseView v)
+	   {
+		   super.removeAllView(v);
+		   root.removeAllView(root);
+			
+	   }
 	public View getRootView()
 	{
 		return root;
+	}
+	public LuaState getLuaState()
+	{
+		return mLuaState;
 	}
     public BaseView NewPage(String name)
     {
@@ -51,6 +61,7 @@ public class Page extends BaseView{
 		   mLuaState.getField(LuaState.LUA_GLOBALSINDEX, "onCreated");
 		  // mLuaState.pushNumber(1);
 			mLuaState.call(0, 1);
+			
 			//mLuaState.pushObjectValue(-1);
 			mLuaState.setField(LuaState.LUA_GLOBALSINDEX, "resulttable");
 			 mLuaState.getField(LuaState.LUA_GLOBALSINDEX, "table2json");
@@ -59,11 +70,12 @@ public class Page extends BaseView{
 				mLuaState.setField(LuaState.LUA_GLOBALSINDEX, "json");
 				 mLuaState.getGlobal("json");
 				//new AlertDialog.Builder(this).setTitle("LUA").setMessage(mLuaState.toString(-1)).setPositiveButton("È·¶¨", null).show();
-                Log.i("xxx", mLuaState.toString(-1));
+                Log.i("xxx", "LuaJson"+mLuaState.toString(-1));
                 Luadata rootdata=  Utils.getMap4Json(new Luadata(),mLuaState.toString(-1));
                 root.setViewData(rootdata);
                 root.setContentView(root);
-                mLuaState.close();
+                this.addView(root);
+                //mLuaState.close();
                 
                 return this;
               //  Log.i("xxx","lua Object:"+ root.toString());
@@ -76,8 +88,9 @@ public class Page extends BaseView{
     }
 	@Override
 	public void setContentView(BaseView v) {
+	
 		root.setContentView(v);
-		
+		this.addView(root);
 	}
 	@Override
 	public String getqName() {

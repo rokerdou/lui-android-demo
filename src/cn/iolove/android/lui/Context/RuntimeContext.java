@@ -21,6 +21,7 @@ public class RuntimeContext{
 	private static RuntimeContext rc = new RuntimeContext();
 	private BootActivity context;
 	private RuntimeContext(){};
+
 	private Device device =Device.getInstance() ;
 	private  PageController pc= PageController.getInstance();
 	public static RuntimeContext getInstance()
@@ -28,9 +29,19 @@ public class RuntimeContext{
 		
 		return rc;
 	}
+
+	public LuaState getLuaState()
+	{
+		return PageController.getInstance().getTopPage().getLuaState();
+	}
 	public Device getDevice()
 	{
 		return device;
+	}
+	public void showError(String text)
+	{
+		new AlertDialog.Builder(this.GetActivityContext()).setTitle("LUA´íÎó").setMessage(text).setPositiveButton("È·¶¨", null).show();
+
 	}
     public PageController getPageController()
     {
@@ -71,6 +82,7 @@ public class RuntimeContext{
 				
 			  mLuaState.getGlobal("resulttable");
 			  LuaObject obj = mLuaState.getLuaObject("resulttable");
+			
 				mLuaState.pushNil();
 			
 				while(mLuaState.next(-2)!=0)

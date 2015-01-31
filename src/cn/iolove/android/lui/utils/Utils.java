@@ -92,9 +92,31 @@ public class Utils {
 
         return root;         
     }         
+	public static void exceuteLuaFuction(LuaState lua,String name)
+	{
+		int i = lua.getTop();
+		lua.getField(LuaState.LUA_GLOBALSINDEX, name);
+		//lua.call(0, 0);
+		int status = lua.pcall(0, 0, 0);
+		if(status!=0)
+		{
+			RuntimeContext.getInstance().showError(lua.toString(-1).toString());
+		}
+		lua.setTop(i);
 
+		
+	}
+	public static void setGlobalObject(LuaState mLuaState,String name,Object obj)
+	
+	{
+		//mLuaState.pushObjectValue(obj);
+		Log.i("jjj", "加入全局对象:"+name+" 类"+obj.getClass().getName());
+		mLuaState.pushJavaObject(obj);
+		mLuaState.setGlobal(name);
+	}
 	public static void readLuaTableData(LuaState mLuaState)
 	{
+		
 		while(mLuaState.next(-2)!=0)
 		{
 			if(mLuaState.toString(-2).equals("subitems"))

@@ -9,18 +9,20 @@ import cn.iolove.android.lui.view.View;
 public class PageController implements PageControl{
 	private static Stack<Page>  StackPage = new Stack<Page>() ;
 	private RuntimeContext rc;
-	private View top;
+	private Page top;
+	
 	private static  PageController obj = new PageController();
 	public static PageController getInstance()
 	{
 		return obj;
 	}
+
 	public PageController setRuntimeContext(RuntimeContext context)
 	{
 		rc=context;
 		return this;
 	}
-	public View getTopPage()
+	public Page getTopPage()
 	{
 		return top;
 	}
@@ -42,9 +44,11 @@ public class PageController implements PageControl{
 	@Override
 	public void pushpage(String pagename) {
     Page objs = new Page(rc);
-     objs.NewPage(pagename);
     StackPage.push(objs);
-    top =objs.getRootView();
+    top =objs;
+     objs.NewPage(pagename);
+    
+ 
    
 		
 	}
@@ -56,7 +60,7 @@ public class PageController implements PageControl{
 			return ;
 		}
 	    Page temp = StackPage.pop();
-	    top= StackPage.peek().getRootView();
+	    top= StackPage.peek();
 	    rc.GetActivityContext().Refresh();
 		
 	}
